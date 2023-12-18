@@ -2,53 +2,37 @@ import requests, random, math
 
 class Pokemon:
     """ Pokemon class: assigns pokemon characteristics to variables """
-    def __init__(self, id, name, stats, types, moves, abilities) -> None:
+    def __init__(self, id, name, hp, attack, defense, special_attack, special_defense, speed, types, moves, abilities) -> None:
         self._ID = id
         self._NAME = name.title()
-        self._hp = self._process_stats(stats, 'hp')
-        self._ATTACK = self._process_stats(stats, 'attack')
-        self._DEFENSE = self._process_stats(stats, 'defense')
-        self._SPECIAL_ATTACK = self._process_stats(stats, 'special-attack')
-        self._SPECIAL_DEFENSE = self._process_stats(stats, 'special-defense')
-        self._SPEED = self._process_stats(stats, 'speed')
-        self._TYPES = self._assign_types(self._process_properties(types, 'type'))
-        self._MOVES = self._process_properties(moves, 'move')
-        self._ABILITIES = self._process_properties(abilities, 'ability')
+        self._hp = hp
+        self._ATTACK = attack
+        self._DEFENSE = defense
+        self._SPECIAL_ATTACK = special_attack
+        self._SPECIAL_DEFENSE = special_defense
+        self._SPEED = speed
+        self._TYPES = self._assign_types(types)
+        self._MOVES = moves
+        self._ABILITIES = abilities
         self._CARD = self.Card(self)
 
     def __str__(self) -> str:
         return f"{self._name}"        
 
     class Card:
-        """ Card class: Gets the pokemon object and prints on the screen its card """
+        """ Card inner class: Gets the pokemon object and prints on the screen its card """
         def __init__(self, obj) -> None:
             self._obj = obj
 
         def display_card(self) -> None:
             print(f"Card for {self._obj._NAME} (#{self._obj._ID})")
-            print(f"Type(s):", ', '.join(self._obj._TYPES.keys()))
+            print(f"Type(s):", ', '.join([k for t in self._obj._TYPES for k in t]))
             print(f"HP: {self._obj._hp}")
             print(f"Attack stat: {self._obj._ATTACK}")
             print(f"Defense stat: {self._obj._DEFENSE}")
             print(f"Special attack stat: {self._obj._SPECIAL_ATTACK}")
             print(f"Special defense stat: {self._obj._SPECIAL_DEFENSE}")
             print(f"Speed: {self._obj._SPEED}")
-
-    def _process_stats(self, stats, stat) -> int:
-        """ This function receives the stats object and the stat name and returns the base_stat values for the stat """
-        result = [s for s in stats if s['stat']['name'] == stat]
-        if result:
-            return int(result[0]['base_stat'])
-        else:
-            return 0
-
-    def _process_properties(self, properties, prop) -> list:
-        """ This functions receives an object (e.g. moves, abilities) and extracts the name and the url to fetch further details from the API """
-        properties_list = [{p[prop]['name'] : p[prop]['url']} for p in properties]
-        if properties_list:
-            return properties_list
-        else:
-            return list()
 
     def _assign_types(self, types) -> dict:
         """ This function makes the necessary calls to the API to fetch the pokemon type details """
@@ -119,14 +103,8 @@ class Pokemon:
     def get_hp(self) -> int:
         return self._hp
     
-    def get_attack_stat(self) -> int:
-        return self._ATTACK
-    
     def get_defense_stat(self) -> int:
         return self._DEFENSE
-    
-    def get_types(self) -> dict:
-        return self._TYPES
 
     def _calculate_damage(self, move_power, opponent_defense) -> int:
         """ This function implements a formula to calculate the damage caused by the selected move """
@@ -148,7 +126,7 @@ class Pokemon:
     def attack(self, opponent) -> None:
         """ This function implements the attack logic by calculating its potential damage and effectiveness.
             Then it decreases the opponent's health by the attack effectiveness value. """
-        types = self.get_types()
+        types = self._TYPES
         move_name, move_power = self._get_move()
         print(f"{self._NAME} attempts the {move_name} move against {opponent.get_name()}")
         damage = self._calculate_damage(move_power, opponent.get_defense_stat())
