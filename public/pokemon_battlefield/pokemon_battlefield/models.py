@@ -108,7 +108,7 @@ class Pokemon:
             return ability_desc
 
     def get_name(self) -> str:
-        return self._name
+        return self._NAME
 
     def get_card(self) -> None:
         self._CARD.display_card()
