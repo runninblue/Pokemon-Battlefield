@@ -94,7 +94,6 @@ app.post('/ability', async(req, res) => {
             .catch((e) => { console.log(e) })
         if (abilityDetails) {
             let abilityDesc = abilityDetails.flavor_text_entries[0].flavor_text;
-            console.log(abilityDesc);
             res.send({ 'ability_desc' : abilityDesc });
         } else {
             res.status(404);
