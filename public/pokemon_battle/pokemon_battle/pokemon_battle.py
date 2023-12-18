@@ -1,5 +1,5 @@
 import requests, sys
-from pokemon_functions import assign_pokemon_properties
+from battle import assign_pokemon_properties
 
 def validate_contesters(pok1, pok2) -> dict | None:
     """ This function validates the contester names via the API. If a pokemon name is found it returns its details, otherwise it returns None """
