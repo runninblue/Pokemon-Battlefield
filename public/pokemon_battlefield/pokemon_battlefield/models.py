@@ -25,7 +25,7 @@ class Pokemon:
             self._obj = obj
 
         def display_card(self) -> None:
-            print(f"Card for {self._obj._NAME} (#{self._obj.__ID})")
+            print(f"Card for {self._obj._NAME} (#{self._obj._ID})")
             print(f"Type(s):", ', '.join(self._obj._TYPES.keys()))
             print(f"HP: {self._obj._hp}")
             print(f"Attack stat: {self._obj._ATTACK}")
