@@ -150,7 +150,7 @@ class Pokemon:
             Then it decreases the opponent's health by the attack effectiveness value. """
         types = self.get_types()
         move_name, move_power = self._get_move()
-        print(f"{self._name} attempts the {move_name} move against {opponent.get_name()}")
+        print(f"{self._NAME} attempts the {move_name} move against {opponent.get_name()}")
         damage = self._calculate_damage(move_power, opponent.get_defense_stat())
         attack_effectiveness = self._calculate_attack_effectiveness(move_name, types, damage)
         if attack_effectiveness > math.floor(opponent.get_hp() / 2):
@@ -159,4 +159,4 @@ class Pokemon:
             attack_effectiveness = math.floor(attack_effectiveness / 4)
         print(f"Damage inflicted to {opponent.get_name()}: {attack_effectiveness}")
         opponent.set_hp(opponent.get_hp() - attack_effectiveness)
-        print(f"{opponent.get_name()} HP: {opponent.get_hp()} - {self._name} HP: {self._hp}\n")
+        print(f"{opponent.get_name()} HP: {opponent.get_hp()} - {self._NAME} HP: {self._hp}\n")
