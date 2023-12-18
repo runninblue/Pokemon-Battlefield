@@ -22,11 +22,10 @@ def battle(pokemon1, pokemon2) -> str:
     else:
         return ''
 
-def assign_pokemon_properties(**kwargs) -> str:
-    """ This function receives the details for each pokemon and creates the Pokemon objects. At the end it returns the winner of the battle. """
+def assign_pokemon_properties(**kwargs) -> Pokemon:
+    """ This function receives the details for each pokemon and creates the Pokemon objects """
     pokemon1 = kwargs['pokemon1']
     pokemon2 = kwargs['pokemon2']
     pokemon1 = Pokemon(pokemon1['id'], pokemon1['name'], pokemon1['stats'], pokemon1['types'], pokemon1['moves'], pokemon1['abilities'])
     pokemon2 = Pokemon(pokemon2['id'], pokemon2['name'], pokemon2['stats'], pokemon2['types'], pokemon2['moves'], pokemon2['abilities'])
-    winner = battle(pokemon1, pokemon2)
-    return winner
+    return pokemon1, pokemon2

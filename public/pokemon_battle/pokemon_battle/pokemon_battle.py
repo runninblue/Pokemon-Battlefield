@@ -1,5 +1,5 @@
 import requests, sys
-from battle import assign_pokemon_properties
+from battle import assign_pokemon_properties, battle
 
 def validate_contesters(pok1, pok2) -> dict | None:
     """ This function validates the contester names via the API. If a pokemon name is found it returns its details, otherwise it returns None """
@@ -29,7 +29,8 @@ if __name__ == "__main__":
         pokemon2 = input("Provide the name of the second contester: ")
         contester_details = validate_contesters(pokemon1, pokemon2)
     else:
-        winner = assign_pokemon_properties(pokemon1 = contester_details['pokemon1'], pokemon2 = contester_details['pokemon2'])
+        pokemon1, pokemon2 = assign_pokemon_properties(pokemon1 = contester_details['pokemon1'], pokemon2 = contester_details['pokemon2'])
+        winner = battle(pokemon1, pokemon2)
         if winner:
             print(f"{winner} wins!")
         else:
