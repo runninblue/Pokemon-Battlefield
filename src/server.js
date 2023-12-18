@@ -36,7 +36,7 @@ app.post('/', async (req, res) => {
             };    
             res.send(pokemonDetails);
         } else {
-            res.status(404);
+            res.redirect(req.baseUrl);
         }
     }
 });
