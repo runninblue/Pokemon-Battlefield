@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     /* The root route provides context for the server */
-    res.send(` Pokemon Battle`);
+    res.send(` Pokemon Battlefield`);
 });
 
 app.post('/', async (req, res) => {
