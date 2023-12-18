@@ -16,12 +16,13 @@ def validate_contesters(pok1, pok2) -> dict | None:
 
 if __name__ == "__main__":
     contester_details = None
+    # Checks if pokemon names are provided as arguments
     args = sys.argv[1:]
-    
     if args:
         if len(args) > 2:
             args = args[:2]
         contester_details = validate_contesters(args[0], args[1])
+
     # While contester details fail to be retrieved from the API user should provide the names through input
     while not contester_details:
         print("\n---- POKEMON BATTLE ----\n")
