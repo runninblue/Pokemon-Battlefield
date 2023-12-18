@@ -6,8 +6,7 @@ def validate_contesters(pok1, pok2) -> dict | None:
     data = {'pokemon1' : pok1, 'pokemon2' : pok2}
     try:
         response = requests.post("http://localhost:5000", data=data)
-        print(response)
-        print(response.status_code)
+
         if response.ok:
             return response.json()
         else:

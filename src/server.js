@@ -19,7 +19,7 @@ app.post('/', async (req, res) => {
     /* Pokemon names are posted through the root route which then fetches their details from pokeapi.co */
     params = req.body;
     if (!params.pokemon1 || !params.pokemon2) {
-        res.status(404);
+        res.status(404).send("<p>Not found</p>");
     } else {
         const pokemon1 = decodeURI(params.pokemon1);
         const pokemon2 = decodeURI(params.pokemon2);
@@ -36,7 +36,7 @@ app.post('/', async (req, res) => {
             };    
             res.send(pokemonDetails);
         } else {
-            res.redirect(req.baseUrl);
+            res.status(404).send("<p>Not found</p>");
         }
     }
 });
@@ -45,7 +45,7 @@ app.post('/type', async(req, res) => {
     /* The type route fetches the pokemon type(s) and returns the damage relations names */
     let typeUrl = req.body.url;
     if (!typeUrl) {
-        res.status(404)
+        res.status(404).send("<p>Not found</p>");
     } else {
         let typeDetails = await pokemonTypes.getPokemonTypes(typeUrl)
             .then((data) => { return data })
@@ -61,7 +61,7 @@ app.post('/type', async(req, res) => {
             }
             res.send(damageRelations);
         } else {
-            res.status(404);
+            res.status(404).send("<p>Not found</p>");
         }
     }
 });
@@ -70,7 +70,7 @@ app.post('/move', async(req, res) => {
     /* The move route fetches the details of the randomly selected move and sends its power value */
     let moveUrl = req.body.url;
     if (!moveUrl) {
-        res.status(404);
+        res.status(404).send("<p>Not found</p>");
     } else {
         let moveDetails = await pokemonMoves.getPokemonMove(moveUrl)
             .then((data) => { return data })
@@ -78,7 +78,7 @@ app.post('/move', async(req, res) => {
         if (moveDetails) {
             res.send({ 'power' : moveDetails.power });
         } else {
-            res.status(404);
+            res.status(404).send("<p>Not found</p>");
         }
     }
 });
@@ -87,7 +87,7 @@ app.post('/ability', async(req, res) => {
     /* The ability route fetches the ability details and sends a short description  */
     let abilityUrl = req.body.url;
     if (!abilityUrl) {
-        res.status(404)
+        res.status(404).send("<p>Not found</p>");
     } else {
         let abilityDetails = await pokemonAbilities.getPokemonAbilities(abilityUrl)
             .then((data) => { return data })
@@ -96,7 +96,7 @@ app.post('/ability', async(req, res) => {
             let abilityDesc = abilityDetails.flavor_text_entries[0].flavor_text;
             res.send({ 'ability_desc' : abilityDesc });
         } else {
-            res.status(404);
+            res.status(404).send("<p>Not found</p>");
         }
     }
 });
