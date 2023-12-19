@@ -24,8 +24,16 @@ def battle(pokemon1, pokemon2) -> str:
 
 def assign_pokemon_properties(**kwargs) -> Pokemon:
     """ This function receives the details for each pokemon and creates the Pokemon objects """
-    pokemon1 = kwargs['pokemon1']
-    pokemon2 = kwargs['pokemon2']
-    pokemon1 = Pokemon(pokemon1['id'], pokemon1['name'], pokemon1['hp'], pokemon1['attack'], pokemon1['defense'], pokemon1['specialAttack'], pokemon1['specialDefense'], pokemon1['speed'], pokemon1['types'], pokemon1['moves'], pokemon1['abilities'])
-    pokemon2 = Pokemon(pokemon2['id'], pokemon2['name'], pokemon2['hp'], pokemon2['attack'], pokemon2['defense'], pokemon2['specialAttack'], pokemon2['specialDefense'], pokemon2['speed'], pokemon2['types'], pokemon2['moves'], pokemon2['abilities'])
-    return pokemon1, pokemon2
+    try:
+        pokemon1_details = kwargs['pokemon1']
+        pokemon2_details = kwargs['pokemon2']
+    except KeyError as e:
+        print("Incorrect keys provided")
+        return None
+    except Exception as e:
+        print(e)
+        return None
+    else:
+        pokemon1 = Pokemon(pokemon1_details)
+        pokemon2 = Pokemon(pokemon2_details)
+        return pokemon1, pokemon2

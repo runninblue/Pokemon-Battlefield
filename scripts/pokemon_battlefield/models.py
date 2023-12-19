@@ -2,18 +2,18 @@ import requests, random, math
 
 class Pokemon:
     """ Pokemon class: assigns pokemon characteristics to variables """
-    def __init__(self, id, name, hp, attack, defense, special_attack, special_defense, speed, types, moves, abilities) -> None:
-        self._ID = id
-        self._NAME = name.title()
-        self._hp = hp
-        self._ATTACK = attack
-        self._DEFENSE = defense
-        self._SPECIAL_ATTACK = special_attack
-        self._SPECIAL_DEFENSE = special_defense
-        self._SPEED = speed
-        self._TYPES = self._assign_types(types)
-        self._MOVES = moves
-        self._ABILITIES = abilities
+    def __init__(self, pokemon_details) -> None:
+        self._ID = pokemon_details.get('id')
+        self._NAME = pokemon_details.get('name').title()
+        self._hp = int(pokemon_details.get('hp'))
+        self._ATTACK = int(pokemon_details.get('attack'))
+        self._DEFENSE = int(pokemon_details.get('defense'))
+        self._SPECIAL_ATTACK = int(pokemon_details.get('specialAttack'))
+        self._SPECIAL_DEFENSE = int(pokemon_details.get('specialDefense'))
+        self._SPEED = int(pokemon_details.get('speed'))
+        self._TYPES = self._assign_types(pokemon_details.get('types'))
+        self._MOVES = pokemon_details.get('moves')
+        self._ABILITIES = pokemon_details.get('abilities')
         self._CARD = self.Card(self)
 
     def __str__(self) -> str:
@@ -25,8 +25,9 @@ class Pokemon:
             self._obj = obj
 
         def display_card(self) -> None:
+            """ This function displays the pokemon card """
             print(f"Card for {self._obj._NAME} (#{self._obj._ID})")
-            print(f"Type(s):", ', '.join([k for t in self._obj._TYPES for k in t]))
+            print(f"Type(s):", ', '.join([t for t in self._obj._TYPES]))
             print(f"HP: {self._obj._hp}")
             print(f"Attack stat: {self._obj._ATTACK}")
             print(f"Defense stat: {self._obj._DEFENSE}")
