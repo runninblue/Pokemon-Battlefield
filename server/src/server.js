@@ -10,7 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', routes);
 
-app.listen(PORT, () => {
-    /* Server initialization */
-    console.log(`Server running on port ${PORT}`);
-});
+module.exports = app;
+
+if (require.main === module) {
+    app.listen(PORT, () => {
+        /* Server initialization */
+        console.log(`Server running on port ${PORT}`);
+    });
+}

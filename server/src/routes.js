@@ -90,7 +90,7 @@ router.post('/move', async (req, res) => {
         } else {
             let urlValidate = validateUrl(POKEAPI_URL, moveUrl);
             if (urlValidate == 0) {
-                res.status(404).send("<p>Type not found</p>");
+                res.status(404).send("<p>Move not found</p>");
             } else {
                 let moveDetails = await pokemonMoves.getPokemonMove(moveUrl)
                     .then((data) => { return data })
@@ -117,7 +117,7 @@ router.post('/ability', async (req, res) => {
         } else {
             let urlValidate = validateUrl(POKEAPI_URL, abilityUrl);
             if (urlValidate == 0) {
-                res.status(404).send("<p>Type not found</p>");
+                res.status(404).send("<p>Ability not found</p>");
             } else {
 
                 let abilityDetails = await pokemonAbilities.getPokemonAbilities(abilityUrl)
