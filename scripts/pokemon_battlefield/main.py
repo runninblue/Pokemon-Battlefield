@@ -1,6 +1,6 @@
 import requests, sys
-from battle import assign_pokemon_properties, battle
-from exceptions import PokemonNamesException, PokemonValidationException, PokemonSelectionException
+from battle import *
+from exceptions import *
 
 def validate_contesters(pok1, pok2) -> dict | None:
     """ This function validates the contester names via the API. If a pokemon name is found it returns its details, otherwise it returns None """
@@ -13,26 +13,32 @@ def validate_contesters(pok1, pok2) -> dict | None:
             raise PokemonValidationException()
     except PokemonValidationException as e:
         print(e)
-        return None
     except Exception as e:
         print(e)
-        return None
+    return None
 
-if __name__ == "__main__":
-    contester_details = None
+def parse_args():
     # Checks if pokemon names are provided as arguments and if not it raises an exception
     args = sys.argv[1:]
-    try:
-        if args:
+    if args:
+        try:
             if len(args) >= 2:
                 args = args[:2]
-                contester_details = validate_contesters(args[0], args[1])
+                validated_contesters = validate_contesters(args[0], args[1])
+                return validated_contesters
             else:
-                raise PokemonNamesException()
-    except PokemonNamesException as e:
-        pass
-    except Exception as e:
-        print(e)
+                raise PokemonNamesNumberException()
+        except PokemonNamesNumberException as e:
+            print(e)
+        except Exception as e:
+            print(e)
+        return None
+    else:
+        return None
+
+def main():
+    contester_details = None
+    contester_details = parse_args()
 
     # While contester details fail to be retrieved from the API user should provide the names through input
     while not contester_details:
@@ -45,6 +51,7 @@ if __name__ == "__main__":
         try:
             pokemons = assign_pokemon_properties(pokemon1 = contester_details['pokemon1'], pokemon2 = contester_details['pokemon2'])
             if pokemons:
+                display_pokemon_cards(pokemons[0], pokemons[1])
                 winner = battle(pokemons[0], pokemons[1])
                 if winner:
                     print(f"{winner} wins!")
@@ -59,4 +66,7 @@ if __name__ == "__main__":
             print(e)
             sys.exit(1)
         finally:
-            sys.exit(0)        
+            sys.exit(0)
+
+if __name__ == "__main__":
+    main()

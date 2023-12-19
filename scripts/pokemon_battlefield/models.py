@@ -3,17 +3,17 @@ import requests, random, math
 class Pokemon:
     """ Pokemon class: assigns pokemon characteristics to variables """
     def __init__(self, pokemon_details) -> None:
-        self._ID = pokemon_details.get('id')
-        self._NAME = pokemon_details.get('name').title()
-        self._hp = int(pokemon_details.get('hp'))
-        self._ATTACK = int(pokemon_details.get('attack'))
-        self._DEFENSE = int(pokemon_details.get('defense'))
-        self._SPECIAL_ATTACK = int(pokemon_details.get('specialAttack'))
-        self._SPECIAL_DEFENSE = int(pokemon_details.get('specialDefense'))
-        self._SPEED = int(pokemon_details.get('speed'))
-        self._TYPES = self._assign_types(pokemon_details.get('types'))
-        self._MOVES = pokemon_details.get('moves')
-        self._ABILITIES = pokemon_details.get('abilities')
+        self._ID = pokemon_details.get('id', '0')
+        self._NAME = pokemon_details.get('name', '').title()
+        self._hp = int(pokemon_details.get('hp', 0))
+        self._ATTACK = int(pokemon_details.get('attack', 0))
+        self._DEFENSE = int(pokemon_details.get('defense', 0))
+        self._SPECIAL_ATTACK = int(pokemon_details.get('specialAttack', 0))
+        self._SPECIAL_DEFENSE = int(pokemon_details.get('specialDefense', 0))
+        self._SPEED = int(pokemon_details.get('speed', 0))
+        self._TYPES = self._assign_types(pokemon_details.get('types', [{}]))
+        self._MOVES = pokemon_details.get('moves', [{}])
+        self._ABILITIES = pokemon_details.get('abilities', [{}])
         self._CARD = self.Card(self)
 
     def __str__(self) -> str:
@@ -37,60 +37,67 @@ class Pokemon:
 
     def _assign_types(self, types) -> dict:
         """ This function makes the necessary calls to the API to fetch the pokemon type details """
-        type_properties = dict()
+        type_properties = {'double_damage_to' : [], 'half_damage_to' : [], 'no_damage_to' : []}
         for pok_type in types:
             for t in pok_type:
-                data = {'url' : pok_type[t]}
-                try:
-                    response = requests.post('http://localhost:5000/type', data=data)
-                except Exception as e:
-                    print(e)
-                    type_properties[t] = dict()
-                else:
-                    if response.ok:
-                        type_properties[t] = response.json()
-                    else:
+                data = {'url' : pok_type.get(t)}
+                if data:
+                    try:
+                        response = requests.post('http://localhost:5000/type', data=data)
+                    except Exception as e:
+                        print(e)
                         type_properties[t] = dict()
+                    else:
+                        if response.ok:
+                            type_properties[t] = response.json()
+                        else:
+                            type_properties[t] = dict()
         return type_properties
 
     def _get_move(self) -> tuple:
         """ This function chooses a random move from the list of moves available for each pokemon and makes the necessary call to the API to fetch its power value """
         response = None
-        while not response:
-            move = random.choice(self._MOVES)
-            ((move_name, move_url),) = move.items()
-            data = {'url' : move_url}
-            try:
-                res = requests.post('http://localhost:5000/move', data=data)
-            except Exception as e:
-                print(e)
+        if any(self._MOVES):
+            while not response:
+                move = random.choice(self._MOVES)
+                ((move_name, move_url),) = move.items()
+                data = {'url' : move_url}
+                try:
+                    res = requests.post('http://localhost:5000/move', data=data)
+                except Exception as e:
+                    print(e)
+                else:
+                    if res.ok:
+                        response = res.json()
             else:
-                if res.ok:
-                    response = res.json()
+                move_power = response.get('power')
+                if not move_power:
+                    move_power = 0
+                return move_name, move_power
         else:
-            move_power = response.get('power')
-            if not move_power:
-                move_power = 0
-            return move_name, move_power
+            return '', 0
 
     def _get_ability(self) -> str:
         """ This function chooses a random ability from the list of abilities available for each pokemon and makes the necessary call to the API to fetch a short description """
         response = None
         ability_desc = ''
-        while not response:
-            ability = random.choice(self._ABILITIES)
-            ((ability_name, ability_url),) = ability.items()
-            data = {'url' : ability_url}
-            try:
-                res = requests.post('http://localhost:5000/ability', data=data)
-            except Exception as e:
-                print(e)
+        if any(self._ABILITIES):
+            while not response:
+                ability = random.choice(self._ABILITIES)
+                ((ability_name, ability_url),) = ability.items()
+                data = {'url' : ability_url}
+                try:
+                    res = requests.post('http://localhost:5000/ability', data=data)
+                except Exception as e:
+                    print(e)
+                else:
+                    if res.ok:
+                        response = res.json()
             else:
-                if res.ok:
-                    response = res.json()
+                ability_desc = response.get('ability_desc')
+                return ability_desc
         else:
-            ability_desc = response.get('ability_desc')
-            return ability_desc
+            return ''
 
     def get_name(self) -> str:
         return self._NAME
