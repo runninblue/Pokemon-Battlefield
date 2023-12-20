@@ -75,7 +75,7 @@ class Pokemon:
                     move_power = 0
                 return move_name, move_power
         else:
-            return '', 0
+            return '', 1000
 
     def _get_ability(self) -> str:
         """ This function chooses a random ability from the list of abilities available for each pokemon and makes the necessary call to the API to fetch a short description """

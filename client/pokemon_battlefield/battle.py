@@ -1,22 +1,26 @@
+import random
 from models import Pokemon
 
-def battle(pokemon1, pokemon2) -> str:
-    """ This function shows the pokemon cards, proceeds with the attack phase and returns the winner's name """
+def battle(pokemons) -> str:
+    """ Executes the battle phase and returns the winner's name """
     input("Press any key to start the battle...")
     print('\n!Battle begins!\n')
-    if pokemon1.get_hp() != 0 and pokemon2.get_hp() != 0:
+    if (pokemons[0].get_hp() and pokemons[1].get_hp()):
+        random.shuffle(pokemons)
+        first_pokemon, second_pokemon = pokemons
+
         while True:
-            pokemon1.attack(pokemon2)
-            if pokemon2.get_hp() <= 0:
+            first_pokemon.attack(second_pokemon)
+            if second_pokemon.get_hp() <= 0:
                 break
-            pokemon2.attack(pokemon1)
-            if pokemon1.get_hp() <= 0:
+            second_pokemon.attack(first_pokemon)
+            if first_pokemon.get_hp() <= 0:
                 break
     
-        if pokemon1.get_hp() > pokemon2.get_hp():
-            return pokemon1.get_name()
-        elif pokemon1.get_hp() < pokemon2.get_hp():
-            return pokemon2.get_name()
+        if first_pokemon.get_hp() > second_pokemon.get_hp():
+            return first_pokemon.get_name()
+        elif first_pokemon.get_hp() < second_pokemon.get_hp():
+            return second_pokemon.get_name()
         else:
             return ''
     else:
@@ -28,7 +32,7 @@ def display_pokemon_cards(*args):
         print()
 
 def assign_pokemon_properties(**kwargs) -> Pokemon:
-    """ This function receives the details for each pokemon and creates the Pokemon objects """
+    """ Receives the details for each pokemon and creates the Pokemon objects """
     try:
         pokemon1_details = kwargs['pokemon1']
         pokemon2_details = kwargs['pokemon2']
