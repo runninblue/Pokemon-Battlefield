@@ -4,7 +4,7 @@ def battle(pokemon1, pokemon2) -> str:
     """ This function shows the pokemon cards, proceeds with the attack phase and returns the winner's name """
     input("Press any key to start the battle...")
     print('\n!Battle begins!\n')
-    if not (pokemon1.get_hp() == 0 or pokemon2.get_hp()):
+    if pokemon1.get_hp() != 0 and pokemon2.get_hp() != 0:
         while True:
             pokemon1.attack(pokemon2)
             if pokemon2.get_hp() <= 0:
@@ -13,10 +13,12 @@ def battle(pokemon1, pokemon2) -> str:
             if pokemon1.get_hp() <= 0:
                 break
     
-    if pokemon1.get_hp() > pokemon2.get_hp():
-        return pokemon1.get_name()
-    elif pokemon1.get_hp() < pokemon2.get_hp():
-        return pokemon2.get_name()
+        if pokemon1.get_hp() > pokemon2.get_hp():
+            return pokemon1.get_name()
+        elif pokemon1.get_hp() < pokemon2.get_hp():
+            return pokemon2.get_name()
+        else:
+            return ''
     else:
         return ''
 

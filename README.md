@@ -1,44 +1,64 @@
 # Pokemon Battlefield
 
-Welcome to the Pokemon Battlefield, a client-server application that simulates Pokemon battles.
-
-## Server (Node.js)
+Welcome to Pokemon Battlefield, a client/server application that simulates Pokemon battles.
 
 ### Prerequisites
-- Node.js installed (version 20.10.0)
-- npm installed (version 10.2.5)
-- Python installed (version 3.10.1)
+- Git
+- Node.js (version 20.10.0)
+- npm (version 10.2.5)
+- Python (version 3.12.1)
+- pip (version 23.3.2)
 
+## Installation
+   Clone the repository:
+```
+   git clone https://github.com/runninblue/Pokemon-Battlefield.git
+```
 
-## Server (Node.js)
-### Installation
-1. Clone the repository:
-   git clone https://github.com/your-username/pokemon-battle-system.git
+## Server (Node.js) Initialization
+1. Navigate to the server directory:
+```shell
+    cd Pokemon-Battlefield/server
+```
 
-2. Navigate to the server directory:
-    cd pokemon-battlefield/server
-
-3. Install dependencies:
+2. Install dependencies:
+```shell
     npm install
+```
 
 ### Usage
 1. Start the server:
+```shell
     npm start
+```
     
-   Alternatively, start the server by navigating to src directory and executing:
-    node server.js
+   Alternatively, start the server by executing:
+```shell
+    node ./src/server.js
+```
 
-3. The server will run at http://localhost:5000.
+2. The server will run at http://localhost:5000
 
-## Client (Python)
+## Client (Python) Initialization
 1. Navigate to the client directory:
+```shell
     cd client
+```
 
-2. Run the client script:
+2. Install libraries from requirements.txt:
+```shell
+    pip install -r requirements.txt
+```
+
+### Usage
+1. Run the client script:
+```shell
     python main.py
+```
 
-   Alternatively you can provide the Pokemon names as arguments, for example:
+   Alternatively provide the Pokemon names as arguments, for example:
+```shell
     python main.py raichu caterpie
+```
 
-3. Follow any prompts to initiate Pokemon battles.
-
+2. Follow any prompts to initiate Pokemon battles.
