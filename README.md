@@ -40,9 +40,9 @@ Welcome to Pokemon Battlefield, a client/server application that simulates Pokem
 2. The server will run at http://localhost:5000
 
 ## Client (Python) Initialization
-1. Navigate to the client directory:
+1. From root navigate to the client directory:
 ```shell
-    cd client
+    cd client/pokemon_battlefield
 ```
 
 2. Install libraries from requirements.txt:

@@ -56,7 +56,7 @@ def main():
                 if winner:
                     print(f"{winner} wins!")
                 else:
-                    print("!It's a draw!")
+                    print("!No Pokemon has won!")
             else:
                 raise PokemonSelectionException()
         except PokemonSelectionException as e:
@@ -70,3 +70,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+    while input("Play again? (y/n)").lower() == 'y':
+        main()
+    else:
+        sys.exit(0)
