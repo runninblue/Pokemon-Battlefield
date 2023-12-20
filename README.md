@@ -58,4 +58,4 @@ Pokemon Battlefield: A client/server application that simulates Pokemon battles.
 
 2. Follow any prompts to initiate Pokemon battles.
 
-3.  Press Ctrl+C at any time to terminate the program
+3. Press Ctrl+C at any time to terminate the program
