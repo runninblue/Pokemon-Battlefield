@@ -45,8 +45,8 @@ def main():
 
     # While contester details fail to be retrieved from the API user should provide the names through input
     while not contester_details:
-        print("\n---- POKEMON BATTLEFIELD ----\n")
-        print("Author: E.H.")
+        print("\n---- POKEMON BATTLEFIELD ----")
+        print("Author: E.H.\n")
         pokemon1_name = input("Choose first Pokemon: ")
         pokemon2_name = input("Choose second Pokemon: ")
         if pokemon1_name and pokemon2_name:
