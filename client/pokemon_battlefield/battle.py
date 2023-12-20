@@ -27,7 +27,7 @@ def battle(pokemons) -> str:
         return ''
 
 def display_pokemon_cards(*args):
-    for pokemon in args:
+    for pokemon in args[0]:
         pokemon.get_card()
         print()
 

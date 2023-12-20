@@ -1,7 +1,7 @@
 import requests, random, math
 
 class Pokemon:
-    """ Pokemon class: assigns pokemon characteristics to variables """
+    """ Pokemon class: assigns pokemon characteristics to attributes """
     def __init__(self, pokemon_details) -> None:
         self._ID = pokemon_details.get('id', '0')
         self._NAME = pokemon_details.get('name', '').title()
@@ -20,7 +20,7 @@ class Pokemon:
         return f"{self._name}"        
 
     class Card:
-        """ Card inner class: Gets the pokemon object and prints on the screen its card """
+        """ Card inner class: Gets the pokemon object and prints its card on the screen """
         def __init__(self, obj) -> None:
             self._obj = obj
 
@@ -36,7 +36,7 @@ class Pokemon:
             print(f"Speed: {self._obj._SPEED}")
 
     def _assign_types(self, types) -> dict:
-        """ This function makes the necessary calls to the API to fetch the pokemon type details """
+        """ Makes the necessary calls to the API to fetch the pokemon type details """
         type_properties = {'double_damage_to' : [], 'half_damage_to' : [], 'no_damage_to' : []}
         for pok_type in types:
             for t in pok_type:
@@ -55,7 +55,7 @@ class Pokemon:
         return type_properties
 
     def _get_move(self) -> tuple:
-        """ This function chooses a random move from the list of moves available for each pokemon and makes the necessary call to the API to fetch its power value """
+        """ Chooses a random move from the list of moves available for each pokemon and makes the necessary call to the API to fetch its power value """  
         response = None
         if any(self._MOVES):
             while not response:
@@ -75,10 +75,10 @@ class Pokemon:
                     move_power = 0
                 return move_name, move_power
         else:
-            return '', 1000
+            return '', 100
 
     def _get_ability(self) -> str:
-        """ This function chooses a random ability from the list of abilities available for each pokemon and makes the necessary call to the API to fetch a short description """
+        """ Chooses a random ability from the list of abilities available for each pokemon and makes the necessary call to the API to fetch a short description """
         response = None
         ability_desc = ''
         if any(self._ABILITIES):
@@ -115,12 +115,12 @@ class Pokemon:
         return self._DEFENSE
 
     def _calculate_damage(self, move_power, opponent_defense) -> int:
-        """ This function implements a formula to calculate the damage caused by the selected move """
-        damage = (self._ATTACK / max(1, opponent_defense)) * move_power
-        return math.floor(damage / 2)
+        """ Implements a formula to calculate the damage caused by the selected move """
+        damage = (max(1, self._ATTACK) / max(1, opponent_defense)) * move_power
+        return math.ceil(damage / 2)
 
     def _calculate_attack_effectiveness(self, move_name, types, damage) -> int:
-        """ This function adjusts the effectiveness of the damage based on pokemon type characteristics """
+        """ Adjusts the effectiveness of the damage based on pokemon type characteristics """
         for t in types:
             for relation in types[t]:
                 if relation == 'double_damage_to' and move_name in types[t][relation]:
@@ -132,7 +132,7 @@ class Pokemon:
         return math.floor(damage)
 
     def attack(self, opponent) -> None:
-        """ This function implements the attack logic by calculating its potential damage and effectiveness.
+        """ Implements the attack logic by calculating its potential damage and effectiveness.
             Then it decreases the opponent's health by the attack effectiveness value. """
         types = self._TYPES
         move_name, move_power = self._get_move()
@@ -143,6 +143,6 @@ class Pokemon:
             ability_desc = self._get_ability()
             print(f"{opponent.get_name()} {ability_desc.lower()}")
             attack_effectiveness = math.floor(attack_effectiveness / 4)
-        print(f"Damage inflicted to {opponent.get_name()}: {attack_effectiveness}")
         opponent.set_hp(opponent.get_hp() - attack_effectiveness)
+        print(f"Damage inflicted to {opponent.get_name()}: {attack_effectiveness}")
         print(f"{opponent.get_name()} HP: {opponent.get_hp()} - {self._NAME} HP: {self._hp}\n")

@@ -27,6 +27,7 @@ def parse_args():
             if len(args) >= 2:
                 args = args[:2]
                 validated_contesters = validate_contesters(args[0], args[1])
+                sys.argv = [sys.argv[0]]
                 return validated_contesters
             else:
                 raise PokemonNamesNumberException()
@@ -44,16 +45,17 @@ def main():
 
     # While contester details fail to be retrieved from the API user should provide the names through input
     while not contester_details:
-        print("\n---- POKEMON BATTLE ----\n")
-        pokemon1_name = input("Name of first Pokemon: ")
-        pokemon2_name = input("Name of second Pokemon: ")
+        print("\n---- POKEMON BATTLEFIELD ----\n")
+        pokemon1_name = input("Choose first Pokemon: ")
+        pokemon2_name = input("Choose second Pokemon: ")
         if pokemon1_name and pokemon2_name:
             contester_details = validate_contesters(pokemon1_name, pokemon2_name)
     else:
         try:
             pokemons = assign_pokemon_properties(pokemon1 = contester_details['pokemon1'], pokemon2 = contester_details['pokemon2'])
             if pokemons:
-                display_pokemon_cards(pokemons[0], pokemons[1])
+                pokemons = list(pokemons)
+                display_pokemon_cards(pokemons)
                 winner = battle(pokemons)
                 if winner:
                     print(f"{winner} wins!")

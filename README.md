@@ -1,20 +1,14 @@
 # Pokemon Battlefield
 
-Welcome to Pokemon Battlefield, a client/server application that simulates Pokemon battles.
+Pokemon Battlefield: A client/server application that simulates Pokemon battles.
 
 ### Prerequisites
-- Git
 - Node.js (version 20.10.0)
 - npm (version 10.2.5)
 - Python (version 3.12.1)
 - pip (version 23.3.2)
 
 ## Installation
-   Clone the repository:
-```
-   git clone https://github.com/runninblue/Pokemon-Battlefield.git
-```
-
 ## Server (Node.js) Initialization
 1. Navigate to the server directory:
 ```shell
@@ -38,6 +32,7 @@ Welcome to Pokemon Battlefield, a client/server application that simulates Pokem
 ```
 
 2. The server will run at http://localhost:5000
+
 
 ## Client (Python) Initialization
 1. From root navigate to the client directory:
@@ -63,4 +58,4 @@ Welcome to Pokemon Battlefield, a client/server application that simulates Pokem
 
 2. Follow any prompts to initiate Pokemon battles.
 
-3.  Press Ctrl+C to terminate the program
+3.  Press Ctrl+C at any time to terminate the program
