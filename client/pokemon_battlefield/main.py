@@ -19,7 +19,7 @@ def validate_contesters(pok1, pok2) -> dict | None:
         print(e)
     return None
 
-def parse_args():
+def parse_args() -> str | None:
     """ Checks if pokemon names are provided as arguments and if not it raises an exception """
     args = sys.argv[1:]
     if args:
@@ -39,14 +39,15 @@ def parse_args():
     else:
         return None
 
-def main():
+def main() -> None:
+    print("\n---- POKEMON BATTLEFIELD ----")
+    print("Author: E.H.\n")
+
     contester_details = None
     contester_details = parse_args()
 
-    # While contester details fail to be retrieved from the API user should provide the names through input
+    # While contester details fail to be retrieved from the API user should provide Pokemon names through input
     while not contester_details:
-        print("\n---- POKEMON BATTLEFIELD ----")
-        print("Author: E.H.\n")
         pokemon1_name = input("Choose first Pokemon: ")
         pokemon2_name = input("Choose second Pokemon: ")
         if pokemon1_name and pokemon2_name:
