@@ -37,7 +37,7 @@ class Pokemon:
 
     def _assign_types(self, types) -> dict:
         """ Makes the necessary calls to the API to fetch the pokemon type details """
-        type_properties = {'double_damage_to' : [], 'half_damage_to' : [], 'no_damage_to' : []}
+        type_properties = dict()
         for pok_type in types:
             for t in pok_type:
                 data = {'url' : pok_type.get(t)}

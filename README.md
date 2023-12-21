@@ -59,3 +59,16 @@ Pokemon Battlefield: A client/server application that simulates Pokemon battles.
 2. Follow any prompts to initiate Pokemon battles.
 
 3. Press Ctrl+C at any time to terminate the program
+
+## Testing
+### Server
+From the server folder run:
+```shell
+    npm test
+```
+
+### Client
+From the client folder run:
+```shell
+    python -m unittest discover tests
+```
